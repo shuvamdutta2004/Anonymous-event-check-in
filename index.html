@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anonymous Event Check-In | Zero-Knowledge Attendee Verification on Midnight</title>
+  <meta name="description" content="Privacy-preserving anonymous event check-in dApp built on the Midnight Network using Compact zero-knowledge smart contracts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <style>
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero-section {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: rgba(124, 58, 255, 0.1);
+      border: 1px solid rgba(124, 58, 255, 0.35);
+      color: var(--violet-300);
+      padding: 0.45rem 1.15rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-heading {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.35rem;
+    }
+
+    .hero-heading .gradient-text {
+      background: linear-gradient(135deg, var(--violet-400) 0%, var(--cyan-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtext {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.97rem;
+      border-radius: 12px;
+      box-shadow: var(--glow-btn);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow-btn-hover);
+    }
+
+    .btn-secondary {
+      padding: 0.9rem 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.97rem;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-accent);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    /* ── Workflow ─────────────────────────────────────── */
+    .section-label {
+      text-align: center;
+      margin-bottom: 2.25rem;
+    }
+
+    .section-label h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-label p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin: 3.5rem 0;
+    }
+
+    @media (max-width: 900px) { .workflow-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .workflow-grid { grid-template-columns: 1fr; } }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.6rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet-500), var(--cyan-500));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .step-card:hover::before { opacity: 1; }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+      color: #fff;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.1rem;
+      box-shadow: var(--glow-btn);
+    }
+
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .step-desc {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Features ─────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } }
+
+    /* ── Stats Bar ────────────────────────────────────── */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem auto;
+      padding: 1.75rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      max-width: 750px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--violet-400), var(--cyan-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" class="brand">
+        <div class="brand-logo">AECI</div>
+        <div>
+          <div class="brand-title">Anonymous Event Check-In</div>
+          <div class="brand-subtitle">Midnight ZK Network</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link active">Home</a>
+        <a href="/checkin.html" class="nav-link">Attendee Check-In</a>
+        <a href="/admin.html" class="nav-link">Event Admin</a>
+        <a href="/inspector.html" class="nav-link">ZK Inspector</a>
+        <a href="/explorer.html" class="nav-link">Chain Explorer</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="network-badge">
+          <div class="status-dot"></div>
+          Midnight Preprod
+        </div>
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="animated-entry">
+
+    <!-- Hero -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span>🔒</span> Zero-Knowledge Privacy on Midnight Network
+      </div>
+      <h1 class="hero-heading">
+        <span class="gradient-text">Anonymous Event Check-In</span><br>
+        Nobody Knows You Were There
+      </h1>
+      <p class="hero-subtext">
+        Prove you belong at an event without revealing who you are.
+        Attendees generate cryptographic ZK proofs locally — only an on-chain
+        commitment hash is ever disclosed, never your identity or passcode.
+      </p>
+      <div class="cta-buttons">
+        <a href="/checkin.html" class="btn-primary">🚀 Launch Attendee Check-In</a>
+        <a href="/admin.html" class="btn-secondary">⚙️ Event Admin Console</a>
+      </div>
+    </section>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-value" id="heroVisitorCount">1</div>
+        <div class="stat-label">Attendees Verified</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">3</div>
+        <div class="stat-label">ZK Witnesses</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">0</div>
+        <div class="stat-label">PII Disclosed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">On-Chain Verifiable</div>
+      </div>
+    </div>
+
+    <!-- Workflow Steps -->
+    <section>
+      <div class="section-label">
+        <h2>Zero-Knowledge Check-In Pipeline</h2>
+        <p>Private local execution with verifiable on-chain commitment</p>
+      </div>
+
+      <div class="workflow-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">Private Witnesses</div>
+          <div class="step-desc">Secret passcode, random entropy nonce, and role tier generated entirely on-device.</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">Compact ZK Circuit</div>
+          <div class="step-desc">Local proof server executes the anonymousCheckIn circuit with multi-input persistent hashing.</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">Zero-Knowledge Proof</div>
+          <div class="step-desc">Cryptographic proof confirms event authorization without exposing any raw credentials or identity.</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-title">On-Chain Commitment</div>
+          <div class="step-desc">Only the commitment hash and attendee counter are disclosed on the Midnight public ledger.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="features-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">🕵️</div>
+            Full Anonymity
+          </div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">
+          Three private ZK witnesses — passcode, entropy nonce, and role — execute locally.
+          No personally identifiable information ever touches the network.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">⚡</div>
+            Lace Wallet Native
+          </div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">
+          Seamless integration with the Midnight Lace browser wallet for
+          secure transaction signing, DApp connector API v4 compatible.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">🌐</div>
+            Verifiable On-Chain
+          </div>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">
+          Smart contract deployed on Midnight Preprod Testnet.
+          Attendee count and commitment hashes are publicly verifiable
+          on the explorer — identity remains completely private.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Anonymous Event Check-In (AECI) | Built on <a href="https://midnight.network" target="_blank">Midnight Network</a> with Compact ZK Smart Contracts.</p>
+  </footer>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>
