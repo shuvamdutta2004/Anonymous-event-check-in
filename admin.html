@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Organizer Admin | Anonymous Event Check-In (AECI)</title>
+  <meta name="description" content="Manage event organizer IDs and session epochs for anonymous check-in on Midnight Network.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <style>
+    .page-header {
+      margin-bottom: 2rem;
+    }
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.4rem;
+    }
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+    @media (max-width: 900px) {
+      .grid-container { grid-template-columns: 1fr; }
+    }
+    .success-notice {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(52, 211, 153, 0.08);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      border-radius: 10px;
+      color: #34d399;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .circuit-info {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-top: 1rem;
+    }
+    .circuit-info span.keyword { color: var(--violet-300); }
+    .circuit-info span.string  { color: var(--cyan-300); }
+    .circuit-info span.type    { color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" class="brand">
+        <div class="brand-logo">AECI</div>
+        <div>
+          <div class="brand-title">Anonymous Event Check-In</div>
+          <div class="brand-subtitle">Midnight ZK Network</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/checkin.html" class="nav-link">Attendee Check-In</a>
+        <a href="/admin.html" class="nav-link active">Event Admin</a>
+        <a href="/inspector.html" class="nav-link">ZK Inspector</a>
+        <a href="/explorer.html" class="nav-link">Chain Explorer</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="network-badge">
+          <div class="status-dot"></div>
+          Midnight Preprod
+        </div>
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="animated-entry">
+    <div class="page-header">
+      <h1 class="page-title">⚙️ Event Organizer Admin Console</h1>
+      <p class="page-subtitle">Configure the on-chain organizer ID and manage session epochs for your event.</p>
+    </div>
+
+    <div class="grid-container">
+      <!-- Configure Organizer -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">🏛️</div>
+            Configure Event Organizer ID
+          </div>
+          <span class="badge-pill">resetOrganizer()</span>
+        </div>
+
+        <form id="adminForm" onsubmit="handleOrganizerUpdate(event)">
+          <div class="form-group">
+            <label for="newVenueInput">New Event / Organizer ID</label>
+            <input type="text" id="newVenueInput" value="event_midnight_summit_2026" placeholder="Enter organizer or event ID string">
+          </div>
+
+          <div class="form-group">
+            <label for="policySelect">Verification Policy Mode</label>
+            <input type="text" id="policySelect" value="Strict Passcode Hash Commitment" readonly style="background: rgba(255,255,255,0.03); cursor: default;">
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>🔄</span> Update On-Chain Organizer ID
+          </button>
+        </form>
+
+        <div class="success-notice" id="adminNotice">
+          ✓ On-chain Organizer ID successfully updated!
+        </div>
+
+        <div class="circuit-info">
+          <span class="keyword">export circuit</span> resetOrganizer(<span class="type">Bytes&lt;32&gt;</span>): [] {<br>
+          &nbsp;&nbsp;organizerId = <span class="keyword">disclose</span>(newOrganizer);<br>
+          }
+        </div>
+      </div>
+
+      <!-- Attendance Analytics -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">📊</div>
+            Attendance Analytics &amp; Policy
+          </div>
+        </div>
+
+        <div class="status-list">
+          <div class="status-box">
+            <div class="status-box-header">Active Organizer ID</div>
+            <div class="status-box-value" id="currentVenueLabel">event_midnight_summit_2026</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Circuit Reset Signature</div>
+            <div class="status-box-value" style="color: var(--violet-300);">resetOrganizer(newOrganizer: Bytes&lt;32&gt;)</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Session Increment Circuit</div>
+            <div class="status-box-value" style="color: var(--violet-300);">incrementSession(): []</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">ZK Disclosure Policy</div>
+            <div class="status-box-value" style="color: var(--cyan-300);">disclose(newOrganizer)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Anonymous Event Check-In (AECI) | Built on <a href="https://midnight.network" target="_blank">Midnight Network</a> with Compact ZK Smart Contracts.</p>
+  </footer>
+
+  <script type="module" src="/src/index.ts"></script>
+  <script>
+    function handleOrganizerUpdate(e) {
+      e.preventDefault();
+      const val = document.getElementById('newVenueInput').value;
+      document.getElementById('currentVenueLabel').innerText = val;
+      const notice = document.getElementById('adminNotice');
+      if (notice) {
+        notice.style.display = 'block';
+        setTimeout(() => notice.style.display = 'none', 3500);
+      }
+    }
+  </script>
+</body>
+</html>
