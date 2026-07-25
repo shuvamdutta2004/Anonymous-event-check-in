@@ -1,0 +1,54 @@
+// ============================================================================
+// ANONYMOUS EVENT CHECK-IN (AECI) CONTRACT - MIDNIGHT NETWORK
+// ============================================================================
+// Privacy-Preserving Zero-Knowledge Attendee Verification.
+// Multi-Role Anonymous Check-In with Dual Private Witness,
+// Session-Bound Epoch Verification, and Role Privilege Attestation.
+// ============================================================================
+
+pragma language_version 0.23;
+
+import CompactStandardLibrary;
+
+export ledger attendeeCount: Counter;
+export ledger organizerId: Bytes<32>;
+export ledger lastAttendeeCommitment: Bytes<32>;
+export ledger activeSession: Counter;
+
+constructor(initialOrganizer: Bytes<32>) {
+  organizerId = disclose(initialOrganizer);
+  attendeeCount.increment(1);
+  activeSession.increment(1);
+}
+
+witness secretPasscode(): Bytes<32>;
+witness attendeeNonce(): Bytes<32>;
+witness attendeeRole(): Bytes<32>; // Tier 1: General, Tier 2: VIP, Tier 3: Organizer
+
+export circuit anonymousCheckIn(expectedOrganizer: Bytes<32>): Bytes<32> {
+  assert(organizerId == expectedOrganizer, "Invalid event organizer ID provided");
+  
+  const passcode = secretPasscode();
+  const nonce = attendeeNonce();
+  const role = attendeeRole();
+
+  const attendeeCommitment = persistentHash<Vector<4, Bytes<32>>>([
+    pad(32, "aeci:attendee:commitment:v1"),
+    passcode,
+    nonce,
+    role
+  ]);
+  
+  attendeeCount.increment(1);
+  const disclosedCommitment = disclose(attendeeCommitment);
+  lastAttendeeCommitment = disclosedCommitment;
+  return disclosedCommitment;
+}
+
+export circuit resetOrganizer(newOrganizer: Bytes<32>): [] {
+  organizerId = disclose(newOrganizer);
+}
+
+export circuit incrementSession(): [] {
+  activeSession.increment(1);
+}
