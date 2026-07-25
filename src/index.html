@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anonymous Event Check-In | Midnight Network ZK dApp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-void:    #050B18;
+      --bg-surface: rgba(255, 255, 255, 0.04);
+      --violet-400: #a78bfa;
+      --violet-500: #7C3AFF;
+      --cyan-400:   #22d3ee;
+      --cyan-500:   #00E5FF;
+      --text-primary:   #F0F4FF;
+      --text-secondary: #94a3b8;
+      --text-muted:     #4b5563;
+      --border-subtle:  rgba(255, 255, 255, 0.08);
+      --border-accent:  rgba(124, 58, 255, 0.35);
+      --glow-violet:    0 0 24px rgba(124, 58, 255, 0.4);
+      --glow-btn:       0 4px 20px rgba(124, 58, 255, 0.5);
+      --glow-btn-hover: 0 8px 32px rgba(124, 58, 255, 0.7);
+      --shadow-card:    0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background-color: var(--bg-void);
+      background-image:
+        radial-gradient(ellipse at 10% 15%, rgba(124, 58, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: var(--glow-violet); }
+      50%       { box-shadow: 0 0 40px rgba(124, 58, 255, 0.65); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(0.88); opacity: 0.7; }
+      50%       { transform: scale(1.3);  opacity: 1; }
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      animation: fadeInUp 0.5s ease both;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--violet-500), var(--cyan-500));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: -0.02em;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .brand-text h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--violet-400), var(--cyan-400));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    .network-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan-400);
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--cyan-500);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan-500);
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--bg-surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .card h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--violet-500);
+      box-shadow: 0 0 0 3px rgba(124, 58, 255, 0.18);
+    }
+
+    input::placeholder { color: var(--text-muted); }
+
+    .btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--violet-500), #6d28d9);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--glow-btn);
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: var(--glow-btn-hover);
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.88rem;
+    }
+
+    .status-item:last-child { border-bottom: none; }
+
+    .status-label { color: var(--text-muted); flex-shrink: 0; }
+
+    .status-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .log-box {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #22d3ee;
+      max-height: 190px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      line-height: 1.6;
+    }
+
+    .log-line.success { color: #34d399; }
+    .log-line.info    { color: #22d3ee; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">AECI</div>
+        <div class="brand-text">
+          <h1>Anonymous Event Check-In</h1>
+          <p>Zero-Knowledge Attendee Verification on Midnight</p>
+        </div>
+      </div>
+      <div class="network-badge">
+        <div class="status-dot"></div>
+        Preprod Testnet
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🔒 Anonymous Attendee Check-In</h2>
+        <form id="verifyForm">
+          <div class="form-group">
+            <label for="verifierInput">Event / Organizer ID</label>
+            <input type="text" id="verifierInput" value="event_midnight_summit_2026" placeholder="Enter event or organizer ID">
+          </div>
+          <div class="form-group">
+            <label for="passcodeInput">Private Passcode (ZK Witness)</label>
+            <input type="password" id="passcodeInput" value="my_secret_attendee_passcode" placeholder="Enter your private passcode">
+          </div>
+          <button type="submit" class="btn" id="verifyBtn">⚡ Generate ZK Proof &amp; Check In</button>
+        </form>
+        <div class="log-box" id="logBox">
+          <div class="log-line info">> AECI ZK Proof Service initialized.</div>
+          <div class="log-line info">> Ready to generate anonymous attendee commitment.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📊 Public Ledger State</h2>
+        <div class="status-item">
+          <span class="status-label">Contract Address</span>
+          <span class="status-value" id="contractAddr">TBD</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Attendee Count</span>
+          <span class="status-value" id="visitorCount" style="color: var(--violet-400);">0</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Organizer ID</span>
+          <span class="status-value" id="activeVerifier">event_midnight_summit_2026</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Last Commitment</span>
+          <span class="status-value" id="lastCommitment">0x0000...0000</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Proof Server</span>
+          <span class="status-value" style="color: #34d399;">Online (Port 6300)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>
