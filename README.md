@@ -193,7 +193,7 @@ Expected output:
 - [x] **Public GitHub Repository**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
 - [x] **Browser Wallet Integration**: Connects to Midnight Lace Wallet (`window.midnight.mnLace`)
 - [x] **Lace Wallet Connect/Disconnect Lifecycle**: Full session management with DApp Connector API v4
-- [x] **Smart Contract Deployed**: Local WSL deployment via `npx tsx src/integration/deploy.ts`
+- [x] **Smart Contract Deployed**: Deployed at `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
 - [x] **On-Chain Explorer**: [Midnight Preprod Explorer](https://explorer.preprod.midnight.network)
 - [x] **10+ Meaningful Commits**: Structured commit history on `main` branch
 
@@ -205,7 +205,7 @@ Expected output:
 |---|---|
 | **GitHub Repo** | `https://github.com/shuvamdutta2004/Anonymous-event-check-in` |
 | **Network** | Midnight Preprod Testnet |
-| **Contract Address** | Deploy locally via WSL — see section above |
+| **Contract Address** | `0x7bc5bcbda238b94434b56594c031da9ce4c86faa` |
 | **Proof Server** | Docker: `midnightntwrk/proof-server:8.1.0` on port `6300` |
 | **Indexer** | `https://indexer.preprod.midnight.network` |
 | **Faucet** | `https://faucet.preprod.midnight.network` |
