@@ -4,12 +4,12 @@
   "runtime-version": "0.16.0",
   "circuits": [
     {
-      "name": "verifyVisitor",
+      "name": "anonymousCheckIn",
       "pure": false,
       "proof": true,
       "arguments": [
         {
-          "name": "expectedVerifier",
+          "name": "expectedOrganizer",
           "type": {
             "type-name": "Bytes",
             "length": 32
@@ -22,12 +22,12 @@
       }
     },
     {
-      "name": "resetVerifier",
+      "name": "resetOrganizer",
       "pure": false,
       "proof": true,
       "arguments": [
         {
-          "name": "newVerifier",
+          "name": "newOrganizer",
           "type": {
             "type-name": "Bytes",
             "length": 32
@@ -41,7 +41,7 @@
       }
     },
     {
-      "name": "incrementEpoch",
+      "name": "incrementSession",
       "pure": false,
       "proof": true,
       "arguments": [
@@ -64,7 +64,7 @@
       }
     },
     {
-      "name": "visitorNonce",
+      "name": "attendeeNonce",
       "arguments": [
       ],
       "result type": {
@@ -73,7 +73,7 @@
       }
     },
     {
-      "name": "visitorRole",
+      "name": "attendeeRole",
       "arguments": [
       ],
       "result type": {
@@ -86,13 +86,13 @@
   ],
   "ledger": [
     {
-      "name": "visitorCount",
+      "name": "attendeeCount",
       "index": 0,
       "exported": true,
       "storage": "Counter"
     },
     {
-      "name": "verifierId",
+      "name": "organizerId",
       "index": 1,
       "exported": true,
       "storage": "Cell",
@@ -102,7 +102,7 @@
       }
     },
     {
-      "name": "lastVisitorCommitment",
+      "name": "lastAttendeeCommitment",
       "index": 2,
       "exported": true,
       "storage": "Cell",
@@ -112,7 +112,7 @@
       }
     },
     {
-      "name": "activeEpoch",
+      "name": "activeSession",
       "index": 3,
       "exported": true,
       "storage": "Counter"

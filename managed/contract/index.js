@@ -62,95 +62,95 @@ export class Contract {
     if (typeof(witnesses_0.secretPasscode) !== 'function') {
       throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named secretPasscode');
     }
-    if (typeof(witnesses_0.visitorNonce) !== 'function') {
-      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named visitorNonce');
+    if (typeof(witnesses_0.attendeeNonce) !== 'function') {
+      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named attendeeNonce');
     }
-    if (typeof(witnesses_0.visitorRole) !== 'function') {
-      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named visitorRole');
+    if (typeof(witnesses_0.attendeeRole) !== 'function') {
+      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named attendeeRole');
     }
     this.witnesses = witnesses_0;
     this.circuits = {
-      verifyVisitor: (...args_1) => {
+      anonymousCheckIn: (...args_1) => {
         if (args_1.length !== 2) {
-          throw new __compactRuntime.CompactError(`verifyVisitor: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`anonymousCheckIn: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
-        const expectedVerifier_0 = args_1[1];
+        const expectedOrganizer_0 = args_1[1];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('verifyVisitor',
+          __compactRuntime.typeError('anonymousCheckIn',
                                      'argument 1 (as invoked from Typescript)',
-                                     'counter.compact line 27 char 1',
+                                     'counter.compact line 28 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
-        if (!(expectedVerifier_0.buffer instanceof ArrayBuffer && expectedVerifier_0.BYTES_PER_ELEMENT === 1 && expectedVerifier_0.length === 32)) {
-          __compactRuntime.typeError('verifyVisitor',
+        if (!(expectedOrganizer_0.buffer instanceof ArrayBuffer && expectedOrganizer_0.BYTES_PER_ELEMENT === 1 && expectedOrganizer_0.length === 32)) {
+          __compactRuntime.typeError('anonymousCheckIn',
                                      'argument 1 (argument 2 as invoked from Typescript)',
-                                     'counter.compact line 27 char 1',
+                                     'counter.compact line 28 char 1',
                                      'Bytes<32>',
-                                     expectedVerifier_0)
+                                     expectedOrganizer_0)
         }
         const context = { ...contextOrig_0, gasCost: __compactRuntime.emptyRunningCost() };
         const partialProofData = {
           input: {
-            value: _descriptor_1.toValue(expectedVerifier_0),
+            value: _descriptor_1.toValue(expectedOrganizer_0),
             alignment: _descriptor_1.alignment()
           },
           output: undefined,
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._verifyVisitor_0(context,
-                                               partialProofData,
-                                               expectedVerifier_0);
+        const result_0 = this._anonymousCheckIn_0(context,
+                                                  partialProofData,
+                                                  expectedOrganizer_0);
         partialProofData.output = { value: _descriptor_1.toValue(result_0), alignment: _descriptor_1.alignment() };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      resetVerifier: (...args_1) => {
+      resetOrganizer: (...args_1) => {
         if (args_1.length !== 2) {
-          throw new __compactRuntime.CompactError(`resetVerifier: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`resetOrganizer: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
-        const newVerifier_0 = args_1[1];
+        const newOrganizer_0 = args_1[1];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('resetVerifier',
+          __compactRuntime.typeError('resetOrganizer',
                                      'argument 1 (as invoked from Typescript)',
-                                     'counter.compact line 47 char 1',
+                                     'counter.compact line 48 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
-        if (!(newVerifier_0.buffer instanceof ArrayBuffer && newVerifier_0.BYTES_PER_ELEMENT === 1 && newVerifier_0.length === 32)) {
-          __compactRuntime.typeError('resetVerifier',
+        if (!(newOrganizer_0.buffer instanceof ArrayBuffer && newOrganizer_0.BYTES_PER_ELEMENT === 1 && newOrganizer_0.length === 32)) {
+          __compactRuntime.typeError('resetOrganizer',
                                      'argument 1 (argument 2 as invoked from Typescript)',
-                                     'counter.compact line 47 char 1',
+                                     'counter.compact line 48 char 1',
                                      'Bytes<32>',
-                                     newVerifier_0)
+                                     newOrganizer_0)
         }
         const context = { ...contextOrig_0, gasCost: __compactRuntime.emptyRunningCost() };
         const partialProofData = {
           input: {
-            value: _descriptor_1.toValue(newVerifier_0),
+            value: _descriptor_1.toValue(newOrganizer_0),
             alignment: _descriptor_1.alignment()
           },
           output: undefined,
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._resetVerifier_0(context,
-                                               partialProofData,
-                                               newVerifier_0);
+        const result_0 = this._resetOrganizer_0(context,
+                                                partialProofData,
+                                                newOrganizer_0);
         partialProofData.output = { value: [], alignment: [] };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      incrementEpoch: (...args_1) => {
+      incrementSession: (...args_1) => {
         if (args_1.length !== 1) {
-          throw new __compactRuntime.CompactError(`incrementEpoch: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`incrementSession: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('incrementEpoch',
+          __compactRuntime.typeError('incrementSession',
                                      'argument 1 (as invoked from Typescript)',
-                                     'counter.compact line 51 char 1',
+                                     'counter.compact line 52 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -161,20 +161,20 @@ export class Contract {
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._incrementEpoch_0(context, partialProofData);
+        const result_0 = this._incrementSession_0(context, partialProofData);
         partialProofData.output = { value: [], alignment: [] };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       }
     };
     this.impureCircuits = {
-      verifyVisitor: this.circuits.verifyVisitor,
-      resetVerifier: this.circuits.resetVerifier,
-      incrementEpoch: this.circuits.incrementEpoch
+      anonymousCheckIn: this.circuits.anonymousCheckIn,
+      resetOrganizer: this.circuits.resetOrganizer,
+      incrementSession: this.circuits.incrementSession
     };
     this.provableCircuits = {
-      verifyVisitor: this.circuits.verifyVisitor,
-      resetVerifier: this.circuits.resetVerifier,
-      incrementEpoch: this.circuits.incrementEpoch
+      anonymousCheckIn: this.circuits.anonymousCheckIn,
+      resetOrganizer: this.circuits.resetOrganizer,
+      incrementSession: this.circuits.incrementSession
     };
   }
   initialState(...args_0) {
@@ -182,7 +182,7 @@ export class Contract {
       throw new __compactRuntime.CompactError(`Contract state constructor: expected 2 arguments (as invoked from Typescript), received ${args_0.length}`);
     }
     const constructorContext_0 = args_0[0];
-    const initialVerifier_0 = args_0[1];
+    const initialOrganizer_0 = args_0[1];
     if (typeof(constructorContext_0) !== 'object') {
       throw new __compactRuntime.CompactError(`Contract state constructor: expected 'constructorContext' in argument 1 (as invoked from Typescript) to be an object`);
     }
@@ -195,12 +195,12 @@ export class Contract {
     if (typeof(constructorContext_0.initialZswapLocalState) !== 'object') {
       throw new __compactRuntime.CompactError(`Contract state constructor: expected 'initialZswapLocalState' in argument 1 (as invoked from Typescript) to be an object`);
     }
-    if (!(initialVerifier_0.buffer instanceof ArrayBuffer && initialVerifier_0.BYTES_PER_ELEMENT === 1 && initialVerifier_0.length === 32)) {
+    if (!(initialOrganizer_0.buffer instanceof ArrayBuffer && initialOrganizer_0.BYTES_PER_ELEMENT === 1 && initialOrganizer_0.length === 32)) {
       __compactRuntime.typeError('Contract state constructor',
                                  'argument 1 (argument 2 as invoked from Typescript)',
-                                 'counter.compact line 17 char 1',
+                                 'counter.compact line 18 char 1',
                                  'Bytes<32>',
-                                 initialVerifier_0)
+                                 initialOrganizer_0)
     }
     const state_0 = new __compactRuntime.ContractState();
     let stateValue_0 = __compactRuntime.StateValue.newArray();
@@ -209,9 +209,9 @@ export class Contract {
     stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     state_0.data = new __compactRuntime.ChargedState(stateValue_0);
-    state_0.setOperation('verifyVisitor', new __compactRuntime.ContractOperation());
-    state_0.setOperation('resetVerifier', new __compactRuntime.ContractOperation());
-    state_0.setOperation('incrementEpoch', new __compactRuntime.ContractOperation());
+    state_0.setOperation('anonymousCheckIn', new __compactRuntime.ContractOperation());
+    state_0.setOperation('resetOrganizer', new __compactRuntime.ContractOperation());
+    state_0.setOperation('incrementSession', new __compactRuntime.ContractOperation());
     const context = __compactRuntime.createCircuitContext(__compactRuntime.dummyContractAddress(), constructorContext_0.initialZswapLocalState.coinPublicKey, state_0.data, constructorContext_0.initialPrivateState);
     const partialProofData = {
       input: { value: [], alignment: [] },
@@ -266,7 +266,7 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(1n),
                                                                                               alignment: _descriptor_8.alignment() }).encode() } },
                                        { push: { storage: true,
-                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(initialVerifier_0),
+                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(initialOrganizer_0),
                                                                                               alignment: _descriptor_1.alignment() }).encode() } },
                                        { ins: { cached: false, n: 1 } }]);
     const tmp_0 = 1n;
@@ -319,23 +319,6 @@ export class Contract {
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
       __compactRuntime.typeError('secretPasscode',
                                  'return value',
-                                 'counter.compact line 23 char 1',
-                                 'Bytes<32>',
-                                 result_0)
-    }
-    partialProofData.privateTranscriptOutputs.push({
-      value: _descriptor_1.toValue(result_0),
-      alignment: _descriptor_1.alignment()
-    });
-    return result_0;
-  }
-  _visitorNonce_0(context, partialProofData) {
-    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
-    const [nextPrivateState_0, result_0] = this.witnesses.visitorNonce(witnessContext_0);
-    context.currentPrivateState = nextPrivateState_0;
-    if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
-      __compactRuntime.typeError('visitorNonce',
-                                 'return value',
                                  'counter.compact line 24 char 1',
                                  'Bytes<32>',
                                  result_0)
@@ -346,12 +329,12 @@ export class Contract {
     });
     return result_0;
   }
-  _visitorRole_0(context, partialProofData) {
+  _attendeeNonce_0(context, partialProofData) {
     const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
-    const [nextPrivateState_0, result_0] = this.witnesses.visitorRole(witnessContext_0);
+    const [nextPrivateState_0, result_0] = this.witnesses.attendeeNonce(witnessContext_0);
     context.currentPrivateState = nextPrivateState_0;
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
-      __compactRuntime.typeError('visitorRole',
+      __compactRuntime.typeError('attendeeNonce',
                                  'return value',
                                  'counter.compact line 25 char 1',
                                  'Bytes<32>',
@@ -363,7 +346,24 @@ export class Contract {
     });
     return result_0;
   }
-  _verifyVisitor_0(context, partialProofData, expectedVerifier_0) {
+  _attendeeRole_0(context, partialProofData) {
+    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
+    const [nextPrivateState_0, result_0] = this.witnesses.attendeeRole(witnessContext_0);
+    context.currentPrivateState = nextPrivateState_0;
+    if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
+      __compactRuntime.typeError('attendeeRole',
+                                 'return value',
+                                 'counter.compact line 26 char 1',
+                                 'Bytes<32>',
+                                 result_0)
+    }
+    partialProofData.privateTranscriptOutputs.push({
+      value: _descriptor_1.toValue(result_0),
+      alignment: _descriptor_1.alignment()
+    });
+    return result_0;
+  }
+  _anonymousCheckIn_0(context, partialProofData, expectedOrganizer_0) {
     __compactRuntime.assert(this._equal_0(_descriptor_1.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                                     partialProofData,
                                                                                                     [
@@ -376,15 +376,15 @@ export class Contract {
                                                                                                                                 alignment: _descriptor_8.alignment() } }] } },
                                                                                                      { popeq: { cached: false,
                                                                                                                 result: undefined } }]).value),
-                                          expectedVerifier_0),
-                            'Invalid venue verifier ID provided');
+                                          expectedOrganizer_0),
+                            'Invalid event organizer ID provided');
     const passcode_0 = this._secretPasscode_0(context, partialProofData);
-    const nonce_0 = this._visitorNonce_0(context, partialProofData);
-    const role_0 = this._visitorRole_0(context, partialProofData);
-    const visitorCommitment_0 = this._persistentHash_0([new Uint8Array([118, 118, 112, 58, 118, 105, 115, 105, 116, 111, 114, 58, 99, 111, 109, 109, 105, 116, 109, 101, 110, 116, 58, 118, 51, 0, 0, 0, 0, 0, 0, 0]),
-                                                        passcode_0,
-                                                        nonce_0,
-                                                        role_0]);
+    const nonce_0 = this._attendeeNonce_0(context, partialProofData);
+    const role_0 = this._attendeeRole_0(context, partialProofData);
+    const attendeeCommitment_0 = this._persistentHash_0([new Uint8Array([97, 101, 99, 105, 58, 97, 116, 116, 101, 110, 100, 101, 101, 58, 99, 111, 109, 109, 105, 116, 109, 101, 110, 116, 58, 118, 49, 0, 0, 0, 0, 0]),
+                                                         passcode_0,
+                                                         nonce_0,
+                                                         role_0]);
     const tmp_0 = 1n;
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
@@ -401,7 +401,7 @@ export class Contract {
                                                                 .value
                                                             )) } },
                                        { ins: { cached: true, n: 1 } }]);
-    const disclosedCommitment_0 = visitorCommitment_0;
+    const disclosedCommitment_0 = attendeeCommitment_0;
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -414,7 +414,7 @@ export class Contract {
                                        { ins: { cached: false, n: 1 } }]);
     return disclosedCommitment_0;
   }
-  _resetVerifier_0(context, partialProofData, newVerifier_0) {
+  _resetOrganizer_0(context, partialProofData, newOrganizer_0) {
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -422,12 +422,12 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(1n),
                                                                                               alignment: _descriptor_8.alignment() }).encode() } },
                                        { push: { storage: true,
-                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(newVerifier_0),
+                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(newOrganizer_0),
                                                                                               alignment: _descriptor_1.alignment() }).encode() } },
                                        { ins: { cached: false, n: 1 } }]);
     return [];
   }
-  _incrementEpoch_0(context, partialProofData) {
+  _incrementSession_0(context, partialProofData) {
     const tmp_0 = 1n;
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
@@ -465,7 +465,7 @@ export function ledger(stateOrChargedState) {
     privateTranscriptOutputs: []
   };
   return {
-    get visitorCount() {
+    get attendeeCount() {
       return _descriptor_3.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -479,7 +479,7 @@ export function ledger(stateOrChargedState) {
                                                                         { popeq: { cached: true,
                                                                                    result: undefined } }]).value);
     },
-    get verifierId() {
+    get organizerId() {
       return _descriptor_1.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -493,7 +493,7 @@ export function ledger(stateOrChargedState) {
                                                                         { popeq: { cached: false,
                                                                                    result: undefined } }]).value);
     },
-    get lastVisitorCommitment() {
+    get lastAttendeeCommitment() {
       return _descriptor_1.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -507,7 +507,7 @@ export function ledger(stateOrChargedState) {
                                                                         { popeq: { cached: false,
                                                                                    result: undefined } }]).value);
     },
-    get activeEpoch() {
+    get activeSession() {
       return _descriptor_3.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -528,8 +528,8 @@ const _emptyContext = {
 };
 const _dummyContract = new Contract({
   secretPasscode: (...args) => undefined,
-  visitorNonce: (...args) => undefined,
-  visitorRole: (...args) => undefined
+  attendeeNonce: (...args) => undefined,
+  attendeeRole: (...args) => undefined
 });
 export const pureCircuits = {};
 export const contractReferenceLocations =
