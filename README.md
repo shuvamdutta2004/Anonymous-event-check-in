@@ -267,13 +267,13 @@ Expected output:
 ## 📸 Platform Screenshots
 
 ### Anonymous Event Check-In — Landing Page
-![Landing Page](image.png)
+![Landing Page](photos/image.png)
 
 ### ZK Proof Generation & Activity Log
-![ZK Proof Generation](image-1.png)
+![ZK Proof Generation](photos/image-1.png)
 
 ### Multi-Page Dashboard & Chain Explorer
-![Multi-Page Dashboard](screenshot.png)
+![Multi-Page Dashboard](photos/screenshot.png)
 
 ---
 
