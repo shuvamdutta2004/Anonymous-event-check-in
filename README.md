@@ -1,4 +1,4 @@
-﻿# Anonymous Event Check-In (AECI)
+# Anonymous Event Check-In (AECI)
 > A privacy-preserving zero-knowledge anonymous attendee verification dApp built on the Midnight Network using Compact smart contracts.
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Anonymous--event--check--in-181717?style=flat-square&logo=github)](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
@@ -10,30 +10,30 @@
 
 ---
 
-## ðŸŽ¯ What Is AECI?
+## 🎯 What Is AECI?
 
-**Anonymous Event Check-In (AECI)** lets attendees prove they belong at an event **without revealing who they are**. Using Midnight Network's Compact zero-knowledge smart contracts, attendees generate cryptographic ZK proofs entirely on their own device. Only a commitment hash is disclosed on-chain â€” your identity, passcode, and role tier remain completely private.
+**Anonymous Event Check-In (AECI)** lets attendees prove they belong at an event **without revealing who they are**. Using Midnight Network's Compact zero-knowledge smart contracts, attendees generate cryptographic ZK proofs entirely on their own device. Only a commitment hash is disclosed on-chain — your identity, passcode, and role tier remain completely private.
 
-> **Nobody knows you were there â€” except the blockchain knows *someone* was.**
-
----
-
-## ðŸ—ï¸ Repository & Deployment
-
-- ðŸ“¦ **GitHub Repository**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
-- ðŸš€ **Live Demo (Vercel)**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
-- ðŸŽ¬ **Demo Video**: [Watch on Google Drive](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
-- âš™ï¸ **CI/CD Workflow**: [.github/workflows/ci.yml](.github/workflows/ci.yml)
-- ðŸŒ **Midnight Explorer**: [https://explorer.preprod.midnight.network](https://explorer.preprod.midnight.network)
-- ðŸ“¡ **Network**: Midnight Preprod Testnet
-- ðŸ”‘ **Contract Address**: `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
-- ðŸ’¡ **Vercel Note**: No `.env` environment variables required â€” the dApp auto-connects to the on-chain contract and public Midnight indexer endpoints.
+> **Nobody knows you were there — except the blockchain knows *someone* was.**
 
 ---
 
-## ðŸ“¸ Platform Screenshots
+## 🏗️ Repository & Deployment
 
-### Anonymous Event Check-In â€” Landing Page
+- 📦 **GitHub Repository**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
+- 🚀 **Live Demo (Vercel)**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
+- 🎬 **Demo Video**: [Watch on Google Drive](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
+- ⚙️ **CI/CD Workflow**: [.github/workflows/ci.yml](.github/workflows/ci.yml)
+- 🌐 **Midnight Explorer**: [https://explorer.preprod.midnight.network](https://explorer.preprod.midnight.network)
+- 📡 **Network**: Midnight Preprod Testnet
+- 🔑 **Contract Address**: `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
+- 💡 **Vercel Note**: No `.env` environment variables required — the dApp auto-connects to the on-chain contract and public Midnight indexer endpoints.
+
+---
+
+## 📸 Platform Screenshots
+
+### Anonymous Event Check-In — Landing Page
 ![Landing Page](photos/image.png)
 
 ### ZK Proof Generation & Activity Log
@@ -44,18 +44,18 @@
 
 ---
 
-## ðŸ›¡ï¸ Midnight Privacy Model â€” What Is and Isn't Revealed
+## 🛡️ Midnight Privacy Model — What Is and Isn't Revealed
 
-### âŒ What an Observer CANNOT Learn (Strictly Private)
+### ❌ What an Observer CANNOT Learn (Strictly Private)
 
 | Private Data | ZK Witness | Location |
 |---|---|---|
 | Raw Attendee Passcode | `secretPasscode()` | Local device only |
 | Entropy Randomness Nonce | `attendeeNonce()` | Local device only |
 | Attendee Role / Tier | `attendeeRole()` | Local ZK circuit only |
-| Attendee Identity / PII | â€” | Never touches the network |
+| Attendee Identity / PII | — | Never touches the network |
 
-### âœ… What an Observer CAN Learn (Public Ledger)
+### ✅ What an Observer CAN Learn (Public Ledger)
 
 | Public Data | Ledger Field | Description |
 |---|---|---|
@@ -66,7 +66,7 @@
 
 ---
 
-## ðŸ” Compact Smart Contract
+## 📜 Compact Smart Contract
 
 **File:** `contracts/counter.compact`
 
@@ -114,7 +114,7 @@ export circuit incrementSession(): [] {
 
 ---
 
-## ðŸ”‘ Browser Wallet Connector
+## 🔑 Browser Wallet Connector
 
 ```typescript
 // Connect to Midnight Lace Wallet browser extension (DApp Connector API v4)
@@ -129,7 +129,7 @@ public async connectWallet(): Promise<{ connected: boolean; walletAddress: strin
 
 ---
 
-## ðŸš€ Quickstart & Local Installation
+## 🚀 Quickstart & Local Installation
 
 ### Prerequisites
 - Node.js v22+ (`nvm use 22`)
@@ -162,7 +162,7 @@ Open `http://localhost:5173` in your browser.
 
 ---
 
-## ðŸ› ï¸ Local Contract Deployment (WSL)
+## 🛠️ Local Contract Deployment (WSL)
 
 Run the following in **WSL** to deploy the AECI contract locally:
 
@@ -187,7 +187,7 @@ npx tsx src/integration/deploy.ts
 Output:
 ```text
 =======================================================
- Anonymous Event Check-In (AECI) â€” Contract Deployment
+ Anonymous Event Check-In (AECI) — Contract Deployment
 =======================================================
 Target Network: preprod
 Proof Server:   http://localhost:6300
@@ -201,7 +201,7 @@ Contract Address: 0x7bc5bcbda238b94434b56594c031da9ce4c86faa
 
 ---
 
-## ðŸ§ª Automated Test Suite
+## 🧪 Automated Test Suite
 
 ```bash
 npm test
@@ -209,7 +209,7 @@ npm test
 
 Expected output:
 ```text
- âœ“ tests/counter.test.ts (4 tests) 1ms
+ ✓ tests/counter.test.ts (4 tests) 1ms
 
  Test Files  1 passed (1)
       Tests  4 passed (4)
@@ -217,33 +217,35 @@ Expected output:
 
 ---
 
-## ðŸ“‹ Challenge Submission Checklist
+## 📋 Challenge Submission Checklist
 
 ### Level 2 Checklist
 - [x] **Public GitHub Repository with README**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
-- [x] **Live Demo Link**: Ready for Vercel deployment (no `.env` required, static SPA configuration)
+- [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
 - [x] **Deployed Preprod Contract Address**: Verified on-chain at `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
-- [x] **Demo Video Workflow**: Browser wallet connection (`window.midnight.mnLace`) + ZK circuit execution lifecycle
+- [x] **Demo Video Workflow**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **Privacy Claim Documented**: Detailed matrix breaking down raw passcode witness vs disclosed commitment
-- [x] **Minimum 8 Commits**: 14+ structured commits on `main` branch
+- [x] **Minimum 8 Commits**: 15+ structured commits on `main` branch
 
 ### Level 3 Checklist
 - [x] **Public GitHub Repository with Complete README**: Full documentation with badges, code blocks & guide
-- [x] **Live Demo Link**: Vercel configuration (`vercel.json`) included and tested
+- [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
 - [x] **Screenshot / Test Output**: 4/4 passing Vitest unit tests in `tests/counter.test.ts`
 - [x] **CI/CD Badge & Workflow File**: GitHub Actions workflow at `.github/workflows/ci.yml` running automated tests and build
-- [x] **Demo Video (1 minute)**: Demonstrating full wallet session, ZK proof execution & inspector state
+- [x] **Demo Video (1 minute)**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **README Privacy Model Section**: Detailed breakdown of what an observer CAN vs CANNOT learn
 - [x] **Product Proposal Submitted**: Zero-knowledge anonymous event attendance verification
-- [x] **Minimum 10 Commits**: 14+ structured commits on `main` branch
+- [x] **Minimum 10 Commits**: 15+ structured commits on `main` branch
 
 ---
 
-## ðŸ›ï¸ Contract & Deployment Details
+## 🏛️ Contract & Deployment Details
 
 | Environment | Details |
 |---|---|
 | **GitHub Repo** | `https://github.com/shuvamdutta2004/Anonymous-event-check-in` |
+| **Live Demo** | `https://anonymous-event-check-in.vercel.app` |
+| **Demo Video** | `https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing` |
 | **CI/CD Workflow** | `.github/workflows/ci.yml` |
 | **Network** | Midnight Preprod Testnet |
 | **Contract Address** | `0x7bc5bcbda238b94434b56594c031da9ce4c86faa` |
@@ -253,7 +255,7 @@ Expected output:
 
 ---
 
-## ðŸ–¥ï¸ Application Pages
+## 🖥️ Application Pages
 
 | Page | Route | Description |
 |---|---|---|
@@ -265,7 +267,7 @@ Expected output:
 
 ---
 
-## ðŸ› ï¸ Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -280,11 +282,10 @@ Expected output:
 
 ---
 
+## 📄 License
 
-## ðŸ“„ License
-
-MIT â€” see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-<p align="center">Built with ðŸ”’ on <a href="https://midnight.network">Midnight Network</a> â€” Where Privacy Meets Web3.</p>
+<p align="center">Built with 🔒 on <a href="https://midnight.network">Midnight Network</a> — Where Privacy Meets Web3.</p>
