@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendee Check-In Portal | Anonymous Event Check-In (AECI)</title>
+  <meta name="description" content="Anonymously check in to any event using zero-knowledge proofs on the Midnight Network. Your identity stays private.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <style>
+    .page-header {
+      margin-bottom: 2rem;
+    }
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.4rem;
+    }
+    .page-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.75rem;
+    }
+    @media (max-width: 900px) {
+      .grid-container { grid-template-columns: 1fr; }
+    }
+    .privacy-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: rgba(0, 229, 255, 0.06);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      margin-top: 1.25rem;
+      font-size: 0.84rem;
+      color: var(--cyan-300);
+      line-height: 1.6;
+    }
+    .privacy-notice .icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+    .witness-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.35rem;
+    }
+    .witness-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(124, 58, 255, 0.08);
+      border: 1px solid var(--border-accent);
+      color: var(--violet-300);
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" class="brand">
+        <div class="brand-logo">AECI</div>
+        <div>
+          <div class="brand-title">Anonymous Event Check-In</div>
+          <div class="brand-subtitle">Midnight ZK Network</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/checkin.html" class="nav-link active">Attendee Check-In</a>
+        <a href="/admin.html" class="nav-link">Event Admin</a>
+        <a href="/inspector.html" class="nav-link">ZK Inspector</a>
+        <a href="/explorer.html" class="nav-link">Chain Explorer</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="network-badge">
+          <div class="status-dot"></div>
+          Midnight Preprod
+        </div>
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="animated-entry">
+    <div class="page-header">
+      <h1 class="page-title">🎫 Attendee Anonymous Check-In</h1>
+      <p class="page-subtitle">Generate a zero-knowledge proof to verify your event access — without revealing your identity.</p>
+    </div>
+
+    <div class="grid-container">
+      <!-- Check-In Form -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">🔑</div>
+            Generate ZK Proof &amp; Check In
+          </div>
+          <span class="badge-pill">anonymousCheckIn()</span>
+        </div>
+
+        <!-- Active witness indicators -->
+        <div class="witness-badges">
+          <span class="witness-badge">🔒 secretPasscode()</span>
+          <span class="witness-badge">🎲 attendeeNonce()</span>
+          <span class="witness-badge">🏷️ attendeeRole()</span>
+        </div>
+
+        <form id="verifyForm">
+          <div class="form-group">
+            <label for="verifierInput">Event / Organizer ID</label>
+            <input type="text" id="verifierInput" value="event_midnight_summit_2026" placeholder="Enter event or organizer ID">
+          </div>
+
+          <div class="form-group">
+            <label for="passcodeInput">Private Passcode (ZK Witness — never transmitted)</label>
+            <input type="password" id="passcodeInput" value="my_secret_attendee_passcode" placeholder="Enter your private passcode">
+          </div>
+
+          <button type="submit" class="btn-submit" id="verifyBtn">
+            <span>⚡</span> Execute Anonymous Check-In Circuit
+          </button>
+        </form>
+
+        <div class="progress-bar-container" id="progressBar">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+
+        <div class="privacy-notice">
+          <span class="icon">🛡️</span>
+          <span>Your passcode and nonce are processed exclusively inside the local ZK circuit.
+          Only the commitment hash is disclosed on the Midnight blockchain — never your identity or raw credentials.</span>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <label>ZK Proof Execution Logs</label>
+          <div class="activity-box" id="logBox">
+            <div class="log-line info">> AECI ZK Proof Service initialized.</div>
+            <div class="log-line info">> Ready to generate anonymous attendee commitment.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Ledger State -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <div class="card-icon">🛡️</div>
+            Public Ledger State
+          </div>
+          <span class="badge-pill cyan">On-Chain</span>
+        </div>
+
+        <div class="status-list">
+          <div class="status-box">
+            <div class="status-box-header">Smart Contract Address</div>
+            <div class="status-box-value" id="contractAddr">Loading...</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Anonymous Attendee Count</div>
+            <div class="status-box-value" id="visitorCount" style="color: var(--violet-300); font-size: 1.2rem;">1</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Active Session Epoch</div>
+            <div class="status-box-value">1</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Last Disclosed Commitment</div>
+            <div class="status-box-value" id="lastCommitment">0x0000...0000</div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-header">Proof Provider</div>
+            <div class="status-box-value" id="proofProviderEl" style="color: var(--cyan-300);">Midnight Preprod ZK Service</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Anonymous Event Check-In (AECI) | Built on <a href="https://midnight.network" target="_blank">Midnight Network</a> with Compact ZK Smart Contracts.</p>
+  </footer>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>
