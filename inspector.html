@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZK Circuit Inspector | Anonymous Event Check-In (AECI)</title>
+  <meta name="description" content="Inspect the Compact ZK circuit definition for the Anonymous Event Check-In smart contract on Midnight Network.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <style>
+    .page-header { margin-bottom: 2rem; }
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.4rem;
+    }
+    .page-subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+    .code-block {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan-300);
+      padding: 1.5rem;
+      border-radius: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+      line-height: 1.75;
+      overflow-x: auto;
+      margin-top: 1.25rem;
+    }
+    .code-block .kw  { color: var(--violet-300); font-weight: 600; }
+    .code-block .fn  { color: #fbbf24; }
+    .code-block .str { color: #34d399; }
+    .code-block .cmt { color: var(--text-muted); font-style: italic; }
+    .code-block .num { color: #f87171; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" class="brand">
+        <div class="brand-logo">AECI</div>
+        <div>
+          <div class="brand-title">Anonymous Event Check-In</div>
+          <div class="brand-subtitle">Midnight ZK Network</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/checkin.html" class="nav-link">Attendee Check-In</a>
+        <a href="/admin.html" class="nav-link">Event Admin</a>
+        <a href="/inspector.html" class="nav-link active">ZK Inspector</a>
+        <a href="/explorer.html" class="nav-link">Chain Explorer</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="network-badge">
+          <div class="status-dot"></div>
+          Midnight Preprod
+        </div>
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="animated-entry">
+    <div class="page-header">
+      <h1 class="page-title">🔍 Compact ZK Circuit Inspector</h1>
+      <p class="page-subtitle">Full source inspection of <code style="font-family: 'JetBrains Mono', monospace; color: var(--violet-300); font-size: 0.9rem;">contracts/counter.compact</code> — the AECI anonymous check-in circuit.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-icon">🔍</div>
+          AECI Compact Circuit — anonymousCheckIn()
+        </div>
+        <span class="badge-pill">Compact v0.23</span>
+      </div>
+
+      <div class="status-list">
+        <div class="status-box">
+          <div class="status-box-header">Private Witness — Passcode</div>
+          <div class="status-box-value">witness secretPasscode(): Bytes&lt;32&gt;;</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Private Witness — Entropy Nonce</div>
+          <div class="status-box-value">witness attendeeNonce(): Bytes&lt;32&gt;;</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Private Witness — Role Tier</div>
+          <div class="status-box-value">witness attendeeRole(): Bytes&lt;32&gt;;</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Main Circuit Entrypoint</div>
+          <div class="status-box-value" style="color: var(--violet-300);">export circuit anonymousCheckIn(expectedOrganizer: Bytes&lt;32&gt;): Bytes&lt;32&gt;</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Deliberate Disclosure Statement</div>
+          <div class="status-box-value" style="color: var(--cyan-300);">lastAttendeeCommitment = disclose(attendeeCommitment);</div>
+        </div>
+      </div>
+
+      <div class="code-block"><pre><span class="cmt">// Anonymous Event Check-In (AECI) — Compact Smart Contract</span>
+<span class="kw">pragma</span> language_version <span class="num">0.23</span>;
+<span class="kw">import</span> CompactStandardLibrary;
+
+<span class="kw">export ledger</span> attendeeCount: Counter;
+<span class="kw">export ledger</span> organizerId: Bytes&lt;<span class="num">32</span>&gt;;
+<span class="kw">export ledger</span> lastAttendeeCommitment: Bytes&lt;<span class="num">32</span>&gt;;
+<span class="kw">export ledger</span> activeSession: Counter;
+
+<span class="kw">witness</span> <span class="fn">secretPasscode</span>(): Bytes&lt;<span class="num">32</span>&gt;;
+<span class="kw">witness</span> <span class="fn">attendeeNonce</span>(): Bytes&lt;<span class="num">32</span>&gt;;
+<span class="kw">witness</span> <span class="fn">attendeeRole</span>(): Bytes&lt;<span class="num">32</span>&gt;;
+
+<span class="kw">export circuit</span> <span class="fn">anonymousCheckIn</span>(expectedOrganizer: Bytes&lt;<span class="num">32</span>&gt;): Bytes&lt;<span class="num">32</span>&gt; {
+  assert(organizerId == expectedOrganizer, <span class="str">"Invalid event organizer ID provided"</span>);
+
+  <span class="kw">const</span> passcode = <span class="fn">secretPasscode</span>();
+  <span class="kw">const</span> nonce = <span class="fn">attendeeNonce</span>();
+  <span class="kw">const</span> role = <span class="fn">attendeeRole</span>();
+
+  <span class="kw">const</span> attendeeCommitment = <span class="fn">persistentHash</span>&lt;Vector&lt;<span class="num">4</span>, Bytes&lt;<span class="num">32</span>&gt;&gt;&gt;([
+    <span class="fn">pad</span>(<span class="num">32</span>, <span class="str">"aeci:attendee:commitment:v1"</span>),
+    passcode,
+    nonce,
+    role
+  ]);
+
+  attendeeCount.<span class="fn">increment</span>(<span class="num">1</span>);
+  <span class="kw">const</span> disclosedCommitment = <span class="fn">disclose</span>(attendeeCommitment);
+  lastAttendeeCommitment = disclosedCommitment;
+  <span class="kw">return</span> disclosedCommitment;
+}</pre></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Anonymous Event Check-In (AECI) | Built on <a href="https://midnight.network" target="_blank">Midnight Network</a> with Compact ZK Smart Contracts.</p>
+  </footer>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>

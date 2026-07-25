@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chain Explorer | Anonymous Event Check-In (AECI)</title>
+  <meta name="description" content="Explore the on-chain state and network diagnostics for the AECI smart contract on Midnight Preprod.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <style>
+    .page-header { margin-bottom: 2rem; }
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.025em;
+      margin-bottom: 0.4rem;
+    }
+    .page-subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+    .explorer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--cyan-400);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .explorer-link:hover { color: var(--cyan-300); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/index.html" class="brand">
+        <div class="brand-logo">AECI</div>
+        <div>
+          <div class="brand-title">Anonymous Event Check-In</div>
+          <div class="brand-subtitle">Midnight ZK Network</div>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/checkin.html" class="nav-link">Attendee Check-In</a>
+        <a href="/admin.html" class="nav-link">Event Admin</a>
+        <a href="/inspector.html" class="nav-link">ZK Inspector</a>
+        <a href="/explorer.html" class="nav-link active">Chain Explorer</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="network-badge">
+          <div class="status-dot"></div>
+          Midnight Preprod
+        </div>
+        <button class="connect-btn" id="connectWalletBtn">Connect Wallet</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="animated-entry">
+    <div class="page-header">
+      <h1 class="page-title">🌐 Chain Explorer &amp; Network Diagnostics</h1>
+      <p class="page-subtitle">On-chain state and infrastructure status for the AECI smart contract on Midnight Preprod Testnet.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-icon">🌐</div>
+          Midnight Preprod Network State
+        </div>
+        <span class="badge-pill cyan">Live</span>
+      </div>
+
+      <div class="status-list">
+        <div class="status-box">
+          <div class="status-box-header">AECI Smart Contract Address</div>
+          <div class="status-box-value" id="contractAddr">Loading...</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Anonymous Attendee Count</div>
+          <div class="status-box-value" id="visitorCount" style="color: var(--violet-300); font-size: 1.1rem;">1</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Last Disclosed Commitment Hash</div>
+          <div class="status-box-value" id="lastCommitment">0x0000...0000</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Midnight Preprod Block Explorer</div>
+          <div class="status-box-value">
+            <a href="https://explorer.preprod.midnight.network" target="_blank" class="explorer-link">
+              🔗 https://explorer.preprod.midnight.network
+            </a>
+          </div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Public Data Indexer</div>
+          <div class="status-box-value">https://indexer.preprod.midnight.network</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">ZK Proof Server Infrastructure</div>
+          <div class="status-box-value" id="explorerProofServerEl" style="color: #34d399; font-weight: 700;">Midnight Preprod ZK Proof Service (ONLINE)</div>
+        </div>
+
+        <div class="status-box">
+          <div class="status-box-header">Midnight Preprod Faucet</div>
+          <div class="status-box-value">
+            <a href="https://faucet.preprod.midnight.network" target="_blank" class="explorer-link">
+              💧 https://faucet.preprod.midnight.network
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Anonymous Event Check-In (AECI) | Built on <a href="https://midnight.network" target="_blank">Midnight Network</a> with Compact ZK Smart Contracts.</p>
+  </footer>
+
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>
