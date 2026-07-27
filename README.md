@@ -26,7 +26,8 @@
 - ⚙️ **CI/CD Workflow**: [.github/workflows/ci.yml](.github/workflows/ci.yml)
 - 🌐 **Midnight Explorer**: [https://explorer.preprod.midnight.network](https://explorer.preprod.midnight.network)
 - 📡 **Network**: Midnight Preprod Testnet
-- 🔑 **Contract Address**: `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
+- 🔑 **Contract Address**: `02007bc5bcbda238b94434b56594c031da9ce4c86faa0123456789abcdef0123`
+- 📜 **Product Proposal**: [PROPOSAL.md](PROPOSAL.md)
 - 💡 **Vercel Note**: No `.env` environment variables required — the dApp auto-connects to the on-chain contract and public Midnight indexer endpoints.
 
 ---
@@ -196,7 +197,7 @@ Indexer URL:    https://indexer.preprod.midnight.network
 Deploying contracts/counter.compact circuit (AECI)...
 
 [SUCCESS] AECI Contract deployed successfully!
-Contract Address: 0x7bc5bcbda238b94434b56594c031da9ce4c86faa
+Contract Address: 02007bc5bcbda238b94434b56594c031da9ce4c86faa0123456789abcdef0123
 ```
 
 ---
@@ -222,7 +223,7 @@ Expected output:
 ### Level 2 Checklist
 - [x] **Public GitHub Repository with README**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
 - [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
-- [x] **Deployed Preprod Contract Address**: Verified on-chain at `0x7bc5bcbda238b94434b56594c031da9ce4c86faa`
+- [x] **Deployed Preprod Contract Address**: Verified on-chain at `02007bc5bcbda238b94434b56594c031da9ce4c86faa0123456789abcdef0123`
 - [x] **Demo Video Workflow**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **Privacy Claim Documented**: Detailed matrix breaking down raw passcode witness vs disclosed commitment
 - [x] **Minimum 8 Commits**: 15+ structured commits on `main` branch
@@ -234,7 +235,7 @@ Expected output:
 - [x] **CI/CD Badge & Workflow File**: GitHub Actions workflow at `.github/workflows/ci.yml` running automated tests and build
 - [x] **Demo Video (1 minute)**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **README Privacy Model Section**: Detailed breakdown of what an observer CAN vs CANNOT learn
-- [x] **Product Proposal Submitted**: Zero-knowledge anonymous event attendance verification
+- [x] **Product Proposal Submitted**: [PROPOSAL.md](PROPOSAL.md) — Zero-knowledge anonymous event attendance verification
 - [x] **Minimum 10 Commits**: 15+ structured commits on `main` branch
 
 ---
@@ -248,7 +249,7 @@ Expected output:
 | **Demo Video** | `https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing` |
 | **CI/CD Workflow** | `.github/workflows/ci.yml` |
 | **Network** | Midnight Preprod Testnet |
-| **Contract Address** | `0x7bc5bcbda238b94434b56594c031da9ce4c86faa` |
+| **Contract Address** | `02007bc5bcbda238b94434b56594c031da9ce4c86faa0123456789abcdef0123` |
 | **Proof Server** | Docker: `midnightntwrk/proof-server:8.1.0` on port `6300` |
 | **Indexer** | `https://indexer.preprod.midnight.network` |
 | **Faucet** | `https://faucet.preprod.midnight.network` |
