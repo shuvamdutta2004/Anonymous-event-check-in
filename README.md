@@ -34,14 +34,28 @@
 
 ## 📸 Platform Screenshots
 
-### Anonymous Event Check-In — Landing Page
-![Landing Page](photos/image.png)
+<div align="center">
 
-### ZK Proof Generation & Activity Log
-![ZK Proof Generation](photos/image-1.png)
+### 🌐 1. Anonymous Event Check-In — Landing Page
+![Anonymous Event Check-In Landing Page](photos/image.png)
 
-### Multi-Page Dashboard & Chain Explorer
-![Multi-Page Dashboard](photos/screenshot.png)
+*Privacy-preserving zero-knowledge attendee verification interface built on Midnight Network.*
+
+<br/>
+
+### 🔒 2. Zero-Knowledge Proof Generation & Attendee Check-In
+![ZK Proof Generation & Check-In](photos/image-1.png)
+
+*Real-time ZK proof creation, witness computation, and verified check-in state update.*
+
+<br/>
+
+### 🔍 3. Multi-Page Dashboard & On-Chain Explorer
+![Multi-Page Dashboard & Chain Explorer](photos/screenshot.png)
+
+*Live on-chain stats, active event session epoch, and cryptographic commitment history.*
+
+</div>
 
 ---
 
