@@ -1,8 +1,8 @@
 import { AnonymousCheckInClient, CONTRACT_ADDRESS, getProofServerUrl } from './integration/contract.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const client = new AnonymousCheckInClient();
-  
+
   const contractAddrEl = document.getElementById('contractAddr');
   const visitorCountEl = document.getElementById('visitorCount');
   const heroVisitorCountEl = document.getElementById('heroVisitorCount');
@@ -17,8 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const proofProviderEl = document.getElementById('proofProviderEl');
   const explorerProofServerEl = document.getElementById('explorerProofServerEl');
 
+  // Admin page elements
+  const adminForm = document.getElementById('adminForm') as HTMLFormElement;
+  const newVenueInput = document.getElementById('newVenueInput') as HTMLInputElement;
+  const currentVenueLabel = document.getElementById('currentVenueLabel');
+  const adminNotice = document.getElementById('adminNotice');
+  const adminLogArea = document.getElementById('adminLogArea');
+  const adminLogBox = document.getElementById('adminLogBox');
+  const incrementSessionBtn = document.getElementById('incrementSessionBtn');
+
   const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  const proofUrl = getProofServerUrl();
 
   if (contractAddrEl) contractAddrEl.textContent = CONTRACT_ADDRESS;
 
@@ -33,6 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const status = client.getWalletStatus();
   let walletConnected = status.connected;
   let walletAddress = status.address || '';
+
+  // Initial fetch of public ledger state from indexer
+  try {
+    const publicState = await client.fetchPublicState();
+    if (publicState.attendeeCount > 0) {
+      count = publicState.attendeeCount;
+      if (visitorCountEl) visitorCountEl.textContent = count.toString();
+      if (heroVisitorCountEl) heroVisitorCountEl.textContent = count.toString();
+    }
+    if (publicState.organizerId && currentVenueLabel) {
+      currentVenueLabel.textContent = publicState.organizerId;
+    }
+    if (publicState.lastAttendeeCommitment && lastCommitmentEl) {
+      lastCommitmentEl.textContent = publicState.lastAttendeeCommitment;
+    }
+  } catch (e) {
+    console.warn("Could not query initial public state:", e);
+  }
 
   // Sync wallet UI state across pages
   const updateWalletUI = () => {
@@ -61,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateWalletUI();
 
         if (logBoxEl) {
-          logBoxEl.innerHTML += `<div class="log-line success">> [WALLET CONNECTED] Address: ${res.walletAddress}</div>`;
+          logBoxEl.innerHTML += `<div class="log-line success">> [WALLET CONNECTED] Address: ${res.walletAddress} (${res.walletName})</div>`;
           logBoxEl.innerHTML += `<div class="log-line info">> [FAUCET] Need test tokens? Visit <a href="https://faucet.preprod.midnight.network" target="_blank" style="color:#22d3ee; text-decoration:underline;">Midnight Preprod Faucet</a></div>`;
           logBoxEl.scrollTop = logBoxEl.scrollHeight;
         }
@@ -79,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } else {
-      // If connected, copy full address to clipboard
       try {
         await navigator.clipboard.writeText(walletAddress);
         alert(`📋 Wallet Address Copied!\n\n${walletAddress}\n\nPaste this into the Midnight Preprod Faucet to receive test tokens.`);
@@ -93,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Handle Attendee Anonymous Check-In Circuit Submission
   formEl?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -111,54 +137,133 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (logBoxEl) {
       logBoxEl.innerHTML += `<div class="log-line info">> [STEP 1/4] Constructing private witnesses: secretPasscode(), attendeeNonce(), attendeeRole()...</div>`;
-      logBoxEl.innerHTML += `<div class="log-line info">> [STEP 2/4] Proof Server executing Compact ZK circuit anonymousCheckIn() (${isLocal ? 'port 6300' : 'Preprod Remote'})...</div>`;
+      logBoxEl.innerHTML += `<div class="log-line info">> [STEP 2/4] Executing Compact ZK circuit anonymousCheckIn() on Midnight Network...</div>`;
       logBoxEl.scrollTop = logBoxEl.scrollHeight;
     }
 
     client.setAttendeePasscode(passcode);
 
-    setTimeout(async () => {
+    try {
       if (progressFill) progressFill.style.width = '65%';
 
-      try {
-        const result = await client.anonymousCheckIn(organizer);
+      // Real Midnight Smart Contract Circuit Call
+      const result = await client.anonymousCheckIn(organizer);
 
-        // Update wallet state if auto-connected
-        walletConnected = true;
-        walletAddress = result.signedBy || walletAddress;
-        updateWalletUI();
+      walletConnected = true;
+      walletAddress = result.signedBy || walletAddress;
+      updateWalletUI();
 
-        setTimeout(() => {
-          if (progressFill) progressFill.style.width = '100%';
+      if (progressFill) progressFill.style.width = '100%';
 
-          count++;
-          if (visitorCountEl) visitorCountEl.textContent = count.toString();
-          if (heroVisitorCountEl) heroVisitorCountEl.textContent = count.toString();
-          if (lastCommitmentEl) lastCommitmentEl.textContent = result.commitmentHex || '0x...';
+      count++;
+      if (visitorCountEl) visitorCountEl.textContent = count.toString();
+      if (heroVisitorCountEl) heroVisitorCountEl.textContent = count.toString();
+      if (lastCommitmentEl) lastCommitmentEl.textContent = result.commitmentHex || '0x...';
 
-          if (logBoxEl) {
-            const feeStatusNote = result.walletFunded
-              ? `(Deducted from Lace Wallet Balance)`
-              : `(Note: Wallet unfunded — get test tokens at <a href="https://faucet.preprod.midnight.network" target="_blank" style="color:#22d3ee; text-decoration:underline;">Midnight Faucet</a>)`;
-            
-            logBoxEl.innerHTML += `<div class="log-line info">> [STEP 3/4] Signed by Lace Wallet: ${result.signedBy} | Fee: ${result.txFee} ${result.txFeeAsset} ${feeStatusNote}</div>`;
-            logBoxEl.innerHTML += `<div class="log-line success">> [STEP 4/4] ✓ Proof Verified & Submitted! On-Chain Commitment: ${result.commitmentHex} | TxHash: ${result.txHash}</div>`;
-            logBoxEl.scrollTop = logBoxEl.scrollHeight;
-          }
+      if (logBoxEl) {
+        const feeStatusNote = result.walletFunded
+          ? `(Deducted from Lace Wallet Balance)`
+          : `(Note: Wallet unfunded — get test tokens at <a href="https://faucet.preprod.midnight.network" target="_blank" style="color:#22d3ee; text-decoration:underline;">Midnight Faucet</a>)`;
 
-          setTimeout(() => {
-            if (progressBar) progressBar.style.display = 'none';
-            if (progressFill) progressFill.style.width = '0%';
-          }, 800);
+        const blockInfo = result.blockHeight ? ` | Block #${result.blockHeight}` : '';
 
-        }, 400);
-      } catch (err: any) {
-        if (progressBar) progressBar.style.display = 'none';
-        alert(`Check-In Error: ${err?.message}`);
-        if (logBoxEl) {
-          logBoxEl.innerHTML += `<div class="log-line error">> [ERROR] ${err?.message}</div>`;
-        }
+        logBoxEl.innerHTML += `<div class="log-line info">> [STEP 3/4] Signed by Lace Wallet: ${result.signedBy} | Fee: ${result.txFee} ${result.txFeeAsset} ${feeStatusNote}</div>`;
+        logBoxEl.innerHTML += `<div class="log-line success">> [STEP 4/4] ✓ Compact anonymousCheckIn() Executed! On-Chain Commitment: ${result.commitmentHex} | TxHash: ${result.txHash}${blockInfo}</div>`;
+        logBoxEl.scrollTop = logBoxEl.scrollHeight;
       }
-    }, 400);
+
+      setTimeout(() => {
+        if (progressBar) progressBar.style.display = 'none';
+        if (progressFill) progressFill.style.width = '0%';
+      }, 800);
+
+    } catch (err: any) {
+      if (progressBar) progressBar.style.display = 'none';
+      alert(`Check-In Circuit Error: ${err?.message}`);
+      if (logBoxEl) {
+        logBoxEl.innerHTML += `<div class="log-line error">> [ERROR] ${err?.message}</div>`;
+        logBoxEl.scrollTop = logBoxEl.scrollHeight;
+      }
+    }
+  });
+
+  // Handle Event Admin resetOrganizer() Circuit Call
+  adminForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newOrganizerVal = newVenueInput.value;
+
+    if (!newOrganizerVal || newOrganizerVal.trim().length === 0) {
+      alert("Please enter a valid Organizer ID string.");
+      return;
+    }
+
+    try {
+      if (adminNotice) {
+        adminNotice.style.display = 'block';
+        adminNotice.textContent = '⏳ Executing resetOrganizer() circuit on Midnight smart contract...';
+      }
+
+      // Real Midnight Smart Contract Circuit Call
+      const res = await client.resetOrganizer(newOrganizerVal);
+
+      if (currentVenueLabel) currentVenueLabel.textContent = res.newOrganizer;
+
+      if (adminNotice) {
+        adminNotice.textContent = `✓ resetOrganizer() executed! TxHash: ${res.txHash}`;
+        adminNotice.style.display = 'block';
+      }
+
+      if (adminLogArea && adminLogBox) {
+        adminLogArea.style.display = 'block';
+        adminLogBox.innerHTML = `
+          <strong>Circuit:</strong> resetOrganizer(newOrganizer: Bytes&lt;32&gt;)<br>
+          <strong>New Organizer ID:</strong> ${res.newOrganizer}<br>
+          <strong>On-Chain TxHash:</strong> ${res.txHash}<br>
+          <strong>Signed By:</strong> ${res.signedBy}<br>
+          <strong>Status:</strong> CONFIRMED (Midnight Preprod)
+        `;
+      }
+    } catch (err: any) {
+      if (adminNotice) {
+        adminNotice.style.display = 'block';
+        adminNotice.textContent = `❌ resetOrganizer Error: ${err?.message || err}`;
+      }
+      alert(`resetOrganizer Circuit Call Failed:\n\n${err?.message || err}`);
+    }
+  });
+
+  // Handle Event Admin incrementSession() Circuit Call
+  incrementSessionBtn?.addEventListener('click', async () => {
+    try {
+      if (adminNotice) {
+        adminNotice.style.display = 'block';
+        adminNotice.textContent = '⏳ Executing incrementSession() circuit on Midnight smart contract...';
+      }
+
+      // Real Midnight Smart Contract Circuit Call
+      const res = await client.incrementSession();
+
+      if (adminNotice) {
+        adminNotice.textContent = `✓ incrementSession() executed! TxHash: ${res.txHash}`;
+        adminNotice.style.display = 'block';
+      }
+
+      if (adminLogArea && adminLogBox) {
+        adminLogArea.style.display = 'block';
+        adminLogBox.innerHTML = `
+          <strong>Circuit:</strong> incrementSession(): []<br>
+          <strong>Action:</strong> Active Session Epoch Incremented (+1)<br>
+          <strong>On-Chain TxHash:</strong> ${res.txHash}<br>
+          <strong>Signed By:</strong> ${res.signedBy}<br>
+          <strong>Status:</strong> CONFIRMED (Midnight Preprod)
+        `;
+      }
+    } catch (err: any) {
+      if (adminNotice) {
+        adminNotice.style.display = 'block';
+        adminNotice.textContent = `❌ incrementSession Error: ${err?.message || err}`;
+      }
+      alert(`incrementSession Circuit Call Failed:\n\n${err?.message || err}`);
+    }
   });
 });

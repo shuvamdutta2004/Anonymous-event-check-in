@@ -157,13 +157,21 @@
 
           <div class="status-box">
             <div class="status-box-header">Session Increment Circuit</div>
-            <div class="status-box-value" style="color: var(--violet-300);">incrementSession(): []</div>
+            <div class="status-box-value" style="color: var(--violet-300); display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+              <span>incrementSession(): []</span>
+              <button id="incrementSessionBtn" type="button" class="connect-btn" style="font-size: 0.75rem; padding: 0.35rem 0.75rem; background: linear-gradient(135deg, #0284c7, #0369a1);">⚡ Call Circuit</button>
+            </div>
           </div>
 
           <div class="status-box">
             <div class="status-box-header">ZK Disclosure Policy</div>
             <div class="status-box-value" style="color: var(--cyan-300);">disclose(newOrganizer)</div>
           </div>
+        </div>
+
+        <div id="adminLogArea" style="margin-top: 1.5rem; display: none;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">On-Chain Execution Result:</div>
+          <div id="adminLogBox" class="circuit-info" style="color: #34d399; background: rgba(0,0,0,0.6); word-break: break-all;"></div>
         </div>
       </div>
     </div>
@@ -175,17 +183,5 @@
   </footer>
 
   <script type="module" src="/src/index.ts"></script>
-  <script>
-    function handleOrganizerUpdate(e) {
-      e.preventDefault();
-      const val = document.getElementById('newVenueInput').value;
-      document.getElementById('currentVenueLabel').innerText = val;
-      const notice = document.getElementById('adminNotice');
-      if (notice) {
-        notice.style.display = 'block';
-        setTimeout(() => notice.style.display = 'none', 3500);
-      }
-    }
-  </script>
 </body>
 </html>
