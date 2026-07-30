@@ -85,22 +85,27 @@ export class AnonymousCheckInClient {
   public getBrowserWalletProvider(): any {
     if (typeof window === 'undefined') return null;
     const w = window as any;
-    const midnightObj = w.midnight;
 
-    if (!midnightObj) return null;
-
-    if (midnightObj.mnLace) return midnightObj.mnLace;
-    if (midnightObj.lace) return midnightObj.lace;
-
-    const keys = Object.keys(midnightObj);
-    for (const key of keys) {
-      const candidate = midnightObj[key];
-      if (candidate && (typeof candidate.connect === 'function' || typeof candidate.enable === 'function')) {
-        return candidate;
+    if (w.midnight) {
+      if (w.midnight.mnLace) return w.midnight.mnLace;
+      if (w.midnight.lace) return w.midnight.lace;
+      const keys = Object.keys(w.midnight);
+      for (const key of keys) {
+        const candidate = w.midnight[key];
+        if (candidate && (typeof candidate.connect === 'function' || typeof candidate.enable === 'function')) {
+          return candidate;
+        }
+      }
+      if (typeof w.midnight.connect === 'function' || typeof w.midnight.enable === 'function') {
+        return w.midnight;
       }
     }
 
-    return midnightObj;
+    if (w.mnLace) return w.mnLace;
+    if (w.lace) return w.lace;
+    if (w.cardano?.lace) return w.cardano.lace;
+
+    return null;
   }
 
   /**
