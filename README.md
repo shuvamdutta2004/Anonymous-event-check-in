@@ -59,7 +59,7 @@
 <div align="center">
 
 ### 🌐 1. Anonymous Event Check-In — Landing Page
-![Anonymous Event Check-In Landing Page](photos/image.png)
+![Anonymous Event Check-In Landing Page](photos/dashboard.png)
 
 *Privacy-preserving zero-knowledge attendee verification interface built on Midnight Network.*
 
@@ -73,7 +73,7 @@
 <br/>
 
 ### ⚙️ 3. Event Organizer Admin Console
-![Event Organizer Admin Console](photos/dashboard.png)
+![Event Organizer Admin Console](photos/image.png)
 
 *On-chain organizer ID management, session epoch rotation, and live `resetOrganizer()` circuit execution result.*
 
