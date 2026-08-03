@@ -26,7 +26,7 @@
 - ⚙️ **CI/CD Workflow**: [.github/workflows/ci.yml](.github/workflows/ci.yml)
 - 📜 **Product Proposal**: [PROPOSAL.md](PROPOSAL.md)
 
-### 🌕 Midnight Preview Network (Active — Per Rise In Team 2026-08-03)
+### 🌕 Midnight Preview Network (Active)
 - 📡 **Network**: Midnight Preview Testnet
 - 🔑 **Preview Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` ✅ **CONFIRMED**
 - 🌐 **Preview Node RPC**: `https://rpc.preview.midnight.network` — ✅ ONLINE
