@@ -4,23 +4,34 @@ import { Contract, ledger, type Ledger, type Witnesses } from '../../managed/con
  * ============================================================================
  * ANONYMOUS EVENT CHECK-IN (AECI) INTEGRATION CONFIG - BROWSER WALLET & CONTRACT
  * ============================================================================
- * Connected smart contract address on Midnight Preprod Testnet.
+ * CONTRACT ADDRESSES:
+ *   Preprod : 02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415 (legacy)
+ *   Preview : Pending — deploy via Midnight Lace set to Preview network
+ *
+ * Per Rise In Team (2026-08-03): Deploy on Preview instead of Preprod.
+ * Preview RPC:     https://rpc.preview.midnight.network
+ * Preview Indexer: https://indexer.preview.midnight.network/api/v4/graphql
  */
+
+// Legacy Preprod address (kept for reference)
 export const CONTRACT_ADDRESS = "02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415";
+
+// Preview network contract address (update after deploying on Preview)
+export const PREVIEW_CONTRACT_ADDRESS = "Pending";
 
 export const getProofServerUrl = (): string => {
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return "https://indexer.preprod.midnight.network";
+    return "https://indexer.preview.midnight.network/api/v4/graphql";
   }
   return "http://localhost:6300";
 };
 
 export const NETWORK_CONFIG = {
-  networkId: "preprod",
-  indexerUrl: "https://indexer.preprod.midnight.network",
+  networkId: "preview",
+  indexerUrl: "https://indexer.preview.midnight.network/api/v4/graphql",
   proofServerUrl: getProofServerUrl(),
-  nodeUrl: "https://rpc.preprod.midnight.network",
-  faucetUrl: "https://faucet.preprod.midnight.network"
+  nodeUrl: "https://rpc.preview.midnight.network",
+  faucetUrl: "https://faucet.preview.midnight.network"
 };
 
 export interface AttendeePrivateState {
@@ -135,7 +146,7 @@ export class AnonymousCheckInClient {
 
       if (typeof provider.connect === 'function') {
         try {
-          connectedApi = await provider.connect('preprod');
+          connectedApi = await provider.connect('preview');
         } catch (e) {
           connectedApi = await provider.connect();
         }

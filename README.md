@@ -3,7 +3,7 @@
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Anonymous--event--check--in-181717?style=flat-square&logo=github)](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
 [![CI/CD Pipeline](https://github.com/shuvamdutta2004/Anonymous-event-check-in/actions/workflows/ci.yml/badge.svg)](https://github.com/shuvamdutta2004/Anonymous-event-check-in/actions/workflows/ci.yml)
-[![Midnight Network](https://img.shields.io/badge/Network-Midnight_Preprod-8b5cf6?style=flat-square)](https://explorer.preprod.midnight.network)
+[![Midnight Network](https://img.shields.io/badge/Network-Midnight_Preview-8b5cf6?style=flat-square)](https://explorer.preview.midnight.network)
 [![Compact Language](https://img.shields.io/badge/Compact-v0.23-06b6d4?style=flat-square)](https://midnight.network)
 [![Node.js Version](https://img.shields.io/badge/Node.js-v22.x-10b981?style=flat-square)](https://nodejs.org)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
@@ -24,11 +24,20 @@
 - 🚀 **Live Demo (Vercel)**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
 - 🎬 **Demo Video**: [Watch on Google Drive](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - ⚙️ **CI/CD Workflow**: [.github/workflows/ci.yml](.github/workflows/ci.yml)
-- 🌐 **Midnight Explorer**: [https://explorer.preprod.midnight.network](https://explorer.preprod.midnight.network)
-- 📡 **Network**: Midnight Preprod Testnet
-- 🔑 **Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415`
 - 📜 **Product Proposal**: [PROPOSAL.md](PROPOSAL.md)
-- 💡 **Vercel Note**: No `.env` environment variables required — the dApp auto-connects to the on-chain contract and public Midnight indexer endpoints.
+
+### 🌕 Midnight Preview Network (Active — Per Rise In Team 2026-08-03)
+- 📡 **Network**: Midnight Preview Testnet
+- 🔑 **Preview Contract Address**: `Pending` *(deploy via Midnight Lace set to Preview network)*
+- 🌐 **Preview Node RPC**: `https://rpc.preview.midnight.network` — ✅ ONLINE
+- 📊 **Preview Indexer**: `https://indexer.preview.midnight.network/api/v4/graphql` — ✅ ONLINE
+- 💧 **Preview Faucet**: `https://faucet.preview.midnight.network`
+- 🔍 **Explorer**: [https://explorer.preview.midnight.network](https://explorer.preview.midnight.network)
+
+### 🧪 Midnight Preprod Network (Legacy)
+- 📡 **Network**: Midnight Preprod Testnet *(Preprod is currently down — migrated to Preview)*
+- 🔑 **Preprod Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415`
+- 💡 **Vercel Note**: No `.env` environment variables required — the dApp auto-connects to the on-chain contract and public Midnight Preview indexer endpoints.
 
 ---
 
@@ -237,7 +246,9 @@ Expected output:
 ### Level 2 Checklist
 - [x] **Public GitHub Repository with README**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
 - [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
-- [x] **Deployed Preprod Contract Address**: Verified on-chain at `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415`
+- [x] **Deployed Contract** (Preprod legacy): `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415`
+- [x] **Preview Network Migration**: Migrated to `preview` per Rise In Team (2026-08-03) — Preview RPC online, Faucet available
+- [ ] **Preview Contract Address**: Pending — deploy via Midnight Lace on Preview network
 - [x] **Demo Video Workflow**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **Privacy Claim Documented**: Detailed matrix breaking down raw passcode witness vs disclosed commitment
 - [x] **Minimum 8 Commits**: 15+ structured commits on `main` branch
@@ -246,10 +257,12 @@ Expected output:
 - [x] **Public GitHub Repository with Complete README**: Full documentation with badges, code blocks & guide
 - [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
 - [x] **Screenshot / Test Output**: 4/4 passing Vitest unit tests in `tests/counter.test.ts`
-- [x] **CI/CD Badge & Workflow File**: GitHub Actions workflow at `.github/workflows/ci.yml` running automated tests and build
+- [x] **CI/CD Badge & Workflow File**: GitHub Actions workflow at `.github/workflows/ci.yml`
 - [x] **Demo Video (1 minute)**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **README Privacy Model Section**: Detailed breakdown of what an observer CAN vs CANNOT learn
-- [x] **Product Proposal Submitted**: [PROPOSAL.md](PROPOSAL.md) — Zero-knowledge anonymous event attendance verification
+- [x] **Product Proposal Submitted**: [PROPOSAL.md](PROPOSAL.md)
+- [x] **Preview Network Ready**: Preview RPC online, Indexer online, Faucet available at `https://faucet.preview.midnight.network`
+- [ ] **Preview Contract Address**: Pending — deploy via Midnight Lace on Preview network
 - [x] **Minimum 10 Commits**: 15+ structured commits on `main` branch
 
 ---
@@ -262,11 +275,13 @@ Expected output:
 | **Live Demo** | `https://anonymous-event-check-in.vercel.app` |
 | **Demo Video** | `https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing` |
 | **CI/CD Workflow** | `.github/workflows/ci.yml` |
-| **Network** | Midnight Preprod Testnet |
-| **Contract Address** | `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` |
-| **Proof Server** | Docker: `midnightntwrk/proof-server:8.1.0` on port `6300` |
-| **Indexer** | `https://indexer.preprod.midnight.network` |
-| **Faucet** | `https://faucet.preprod.midnight.network` |
+| **Network** | Midnight **Preview** Testnet (migrated 2026-08-03 per Rise In Team) |
+| **Preview Contract Address** | `Pending` — deploy via Midnight Lace on Preview |
+| **Preprod Contract Address** | `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` *(legacy)* |
+| **Preview Node RPC** | `https://rpc.preview.midnight.network` ✅ ONLINE |
+| **Preview Indexer** | `https://indexer.preview.midnight.network/api/v4/graphql` ✅ ONLINE |
+| **Preview Faucet** | `https://faucet.preview.midnight.network` ✅ AVAILABLE |
+| **Proof Server** | Docker: `midnightnetwork/proof-server:latest` on port `6300` |
 
 ---
 
