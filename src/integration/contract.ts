@@ -213,7 +213,7 @@ export class AnonymousCheckInClient {
 
       if (!address || typeof address !== 'string') {
         const walletId = provider.rdns || provider.name || "lace_midnight";
-        address = `mn_preprod1_${walletId.replace(/[^a-z0-9]/gi, '')}_${Date.now().toString(36)}`;
+        address = `mn_preview1_${walletId.replace(/[^a-z0-9]/gi, '')}_${Date.now().toString(36)}`;
       }
 
       this.isConnected = true;
