@@ -68,14 +68,28 @@
 ### 🔒 2. Zero-Knowledge Proof Generation & Attendee Check-In
 ![ZK Proof Generation & Check-In](photos/image-1.png)
 
-*Real-time ZK proof creation, witness computation, and verified check-in state update.*
+*Real-time ZK proof creation, witness computation, and verified check-in state update on Midnight Preview.*
 
 <br/>
 
-### 🔍 3. Multi-Page Dashboard & On-Chain Explorer
-![Multi-Page Dashboard & Chain Explorer](photos/screenshot.png)
+### ⚙️ 3. Event Organizer Admin Console
+![Event Organizer Admin Console](photos/dashboard.png)
 
-*Live on-chain stats, active event session epoch, and cryptographic commitment history.*
+*On-chain organizer ID management, session epoch rotation, and live `resetOrganizer()` circuit execution result.*
+
+<br/>
+
+### 🌐 4. Chain Explorer & Network Diagnostics
+![Chain Explorer & Network Diagnostics](photos/chain-explorer.png)
+
+*Live on-chain contract state, attendee commitment history, and Midnight Preview network status.*
+
+<br/>
+
+### 📱 5. Mobile Responsive Interface
+![Mobile Responsive Interface](photos/mobile-ui.png)
+
+*Seamless mobile responsiveness and Midnight Lace / 1AM browser wallet integration.*
 
 </div>
 
