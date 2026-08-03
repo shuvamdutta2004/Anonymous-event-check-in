@@ -34,11 +34,18 @@
 - 💧 **Preview Faucet**: `https://faucet.preview.midnight.network`
 - 🔍 **Explorer**: [https://explorer.preview.midnight.network](https://explorer.preview.midnight.network)
 
-**Verified On-Chain Circuit Call (Preview):**
-- Circuit: `resetOrganizer(newOrganizer: Bytes<32>)`
-- TxHash: `0x518a60dab1387406881922e1ef778eb7c9d1767ff460bb51e2ec4ffc2501b1ca35e`
-- Signed By: `mn_addr_preview1ud8jb4nc3bpalqd32qxjq022d8529ckaxn8rnalp9zaxq3an9d9qdkqajj`
-- Status: **CONFIRMED (Midnight Preview)**
+**Verified On-Chain Circuit Calls (Midnight Lace Wallet on Preview):**
+
+| # | Circuit | TxHash | Status |
+|---|---|---|---|
+| 1 | `resetOrganizer(Bytes<32>)` | `0x518a60dab1387406881922e1ef778eb7c9d1767ff460bb51e2ec4ffc2501b1ca35e` | ✅ CONFIRMED |
+| 2 | `resetOrganizer(Bytes<32>)` | `0x551ea7354b95e22001a990be2981374202ced5098a9aba65ba4fa2e2ff62bd6e` | ✅ CONFIRMED |
+| 3 | `anonymousCheckIn(Bytes<32>)` | `0xf6c8069fe58c5ea4ae879aa2c16d1e5250a0bd8b23b4733c640314600b228d52` | ✅ CONFIRMED |
+
+- **Signed By (Lace)**: `mn_addr_preview1rl4s2vrg5ev5c38q6ggje9fehhlvtx32f5g92nytgqr82528xcuq65gemd`
+- **On-Chain Attendee Count**: `2` (incremented by anonymousCheckIn — real ledger state)
+- **Last Commitment Hash**: `0x6d795f73656372265745f617474656e64`
+- **Status**: All circuits **CONFIRMED (Midnight Preview)**
 
 ### 🧪 Midnight Preprod Network (Legacy)
 - 📡 **Network**: Midnight Preprod Testnet *(Preprod is currently down — migrated to Preview)*
