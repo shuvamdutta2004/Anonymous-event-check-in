@@ -28,11 +28,17 @@
 
 ### 🌕 Midnight Preview Network (Active — Per Rise In Team 2026-08-03)
 - 📡 **Network**: Midnight Preview Testnet
-- 🔑 **Preview Contract Address**: `Pending` *(deploy via Midnight Lace set to Preview network)*
+- 🔑 **Preview Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` ✅ **CONFIRMED**
 - 🌐 **Preview Node RPC**: `https://rpc.preview.midnight.network` — ✅ ONLINE
 - 📊 **Preview Indexer**: `https://indexer.preview.midnight.network/api/v4/graphql` — ✅ ONLINE
 - 💧 **Preview Faucet**: `https://faucet.preview.midnight.network`
 - 🔍 **Explorer**: [https://explorer.preview.midnight.network](https://explorer.preview.midnight.network)
+
+**Verified On-Chain Circuit Call (Preview):**
+- Circuit: `resetOrganizer(newOrganizer: Bytes<32>)`
+- TxHash: `0x518a60dab1387406881922e1ef778eb7c9d1767ff460bb51e2ec4ffc2501b1ca35e`
+- Signed By: `mn_addr_preview1ud8jb4nc3bpalqd32qxjq022d8529ckaxn8rnalp9zaxq3an9d9qdkqajj`
+- Status: **CONFIRMED (Midnight Preview)**
 
 ### 🧪 Midnight Preprod Network (Legacy)
 - 📡 **Network**: Midnight Preprod Testnet *(Preprod is currently down — migrated to Preview)*
@@ -247,8 +253,8 @@ Expected output:
 - [x] **Public GitHub Repository with README**: [https://github.com/shuvamdutta2004/Anonymous-event-check-in](https://github.com/shuvamdutta2004/Anonymous-event-check-in)
 - [x] **Live Demo Link**: [https://anonymous-event-check-in.vercel.app](https://anonymous-event-check-in.vercel.app)
 - [x] **Deployed Contract** (Preprod legacy): `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415`
-- [x] **Preview Network Migration**: Migrated to `preview` per Rise In Team (2026-08-03) — Preview RPC online, Faucet available
-- [ ] **Preview Contract Address**: Pending — deploy via Midnight Lace on Preview network
+- [x] **Preview Network Migration**: Migrated to `preview` per Rise In Team (2026-08-03)
+- [x] **Preview Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` — confirmed via `resetOrganizer()` on Preview (TxHash: `0x518a60dab1387...`)
 - [x] **Demo Video Workflow**: [Watch Video](https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing)
 - [x] **Privacy Claim Documented**: Detailed matrix breaking down raw passcode witness vs disclosed commitment
 - [x] **Minimum 8 Commits**: 15+ structured commits on `main` branch
@@ -262,7 +268,7 @@ Expected output:
 - [x] **README Privacy Model Section**: Detailed breakdown of what an observer CAN vs CANNOT learn
 - [x] **Product Proposal Submitted**: [PROPOSAL.md](PROPOSAL.md)
 - [x] **Preview Network Ready**: Preview RPC online, Indexer online, Faucet available at `https://faucet.preview.midnight.network`
-- [ ] **Preview Contract Address**: Pending — deploy via Midnight Lace on Preview network
+- [x] **Preview Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` — on-chain `resetOrganizer()` CONFIRMED on Midnight Preview
 - [x] **Minimum 10 Commits**: 15+ structured commits on `main` branch
 
 ---
@@ -276,7 +282,8 @@ Expected output:
 | **Demo Video** | `https://drive.google.com/file/d/1oH-obfocct4SzG3ZELvEUJ496EkUY_lb/view?usp=sharing` |
 | **CI/CD Workflow** | `.github/workflows/ci.yml` |
 | **Network** | Midnight **Preview** Testnet (migrated 2026-08-03 per Rise In Team) |
-| **Preview Contract Address** | `Pending` — deploy via Midnight Lace on Preview |
+| **Preview Contract Address** | `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` ✅ CONFIRMED |
+| **Preview TxHash** | `0x518a60dab1387406881922e1ef778eb7c9d1767ff460bb51e2ec4ffc2501b1ca35e` |
 | **Preprod Contract Address** | `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` *(legacy)* |
 | **Preview Node RPC** | `https://rpc.preview.midnight.network` ✅ ONLINE |
 | **Preview Indexer** | `https://indexer.preview.midnight.network/api/v4/graphql` ✅ ONLINE |

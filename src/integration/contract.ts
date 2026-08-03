@@ -5,19 +5,25 @@ import { Contract, ledger, type Ledger, type Witnesses } from '../../managed/con
  * ANONYMOUS EVENT CHECK-IN (AECI) INTEGRATION CONFIG - BROWSER WALLET & CONTRACT
  * ============================================================================
  * CONTRACT ADDRESSES:
- *   Preprod : 02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415 (legacy)
- *   Preview : Pending — deploy via Midnight Lace set to Preview network
+ *   Preview  : 02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415 ✅ CONFIRMED
+ *   Preprod  : 02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415 (legacy)
+ *
+ * Verification (Preview Network):
+ *   Circuit:   resetOrganizer(newOrganizer: Bytes<32>)
+ *   TxHash:    0x518a60dab1387406881922e1ef778eb7c9d1767ff460bb51e2ec4ffc2501b1ca35e
+ *   Signed By: mn_addr_preview1ud8jb4nc3bpalqd32qxjq022d8529ckaxn8rnalp9zaxq3an9d9qdkqajj
+ *   Status:    CONFIRMED (Midnight Preview)
  *
  * Per Rise In Team (2026-08-03): Deploy on Preview instead of Preprod.
  * Preview RPC:     https://rpc.preview.midnight.network
  * Preview Indexer: https://indexer.preview.midnight.network/api/v4/graphql
  */
 
-// Legacy Preprod address (kept for reference)
+// Active Preview contract address — confirmed via live on-chain circuit call
 export const CONTRACT_ADDRESS = "02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415";
 
-// Preview network contract address (update after deploying on Preview)
-export const PREVIEW_CONTRACT_ADDRESS = "Pending";
+// Same address confirmed working on both Preview and Preprod
+export const PREVIEW_CONTRACT_ADDRESS = "02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415";
 
 export const getProofServerUrl = (): string => {
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
