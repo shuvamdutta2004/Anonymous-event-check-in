@@ -20,10 +20,10 @@ import { Contract, ledger, type Ledger, type Witnesses } from '../../managed/con
  */
 
 // Active Preview contract address — confirmed via live on-chain circuit call
-export const CONTRACT_ADDRESS = "02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415";
+export const CONTRACT_ADDRESS = "75c287a7e901ec9c3688966dbfc59b5e51faf4976af5b39813b9f889f42443a0";
 
 // Same address confirmed working on both Preview and Preprod
-export const PREVIEW_CONTRACT_ADDRESS = "02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415";
+export const PREVIEW_CONTRACT_ADDRESS = "75c287a7e901ec9c3688966dbfc59b5e51faf4976af5b39813b9f889f42443a0";
 
 export const getProofServerUrl = (): string => {
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {

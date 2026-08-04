@@ -28,11 +28,11 @@
 
 ### 🌕 Midnight Preview Network (Active)
 - 📡 **Network**: Midnight Preview Testnet
-- 🔑 **Preview Contract Address**: `02006f36a61df335b22733ada8913b353a8aa0d770a94c07d06ba77e68a0b415` ✅ **CONFIRMED**
+- 🔑 **Preview Contract Address**: `75c287a7e901ec9c3688966dbfc59b5e51faf4976af5b39813b9f889f42443a0` ✅ **CONFIRMED**
 - 🌐 **Preview Node RPC**: `https://rpc.preview.midnight.network` — ✅ ONLINE
 - 📊 **Preview Indexer**: `https://indexer.preview.midnight.network/api/v4/graphql` — ✅ ONLINE
 - 💧 **Preview Faucet**: `https://faucet.preview.midnight.network`
-- 🔍 **Explorer**: [https://explorer.preview.midnight.network](https://explorer.preview.midnight.network)
+- 🔍 **Explorer**: [https://preview.midnightexplorer.com/contracts/75c287a7e901ec9c3688966dbfc59b5e51faf4976af5b39813b9f889f42443a0](https://preview.midnightexplorer.com/contracts/75c287a7e901ec9c3688966dbfc59b5e51faf4976af5b39813b9f889f42443a0)
 
 **Verified On-Chain Circuit Calls (Midnight Lace Wallet on Preview):**
 
